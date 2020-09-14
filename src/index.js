@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 
 function stateChanger(state, action) {
 	if (state === undefined) {
@@ -19,12 +20,9 @@ function stateChanger(state, action) {
 const store = createStore(stateChanger)
 
 const render = () => ReactDOM.render(
-	<React.StrictMode>
-		<App value={store.getState()}
-			add1={() => store.dispatch({ type: 'add', payload: 1 })}
-			add2={() => store.dispatch({ type: 'add', payload: 2 })}
-		/>
-	</React.StrictMode>,
+	<Provider store={store}>
+		<App />
+	</Provider>,
 	document.getElementById('root')
 );
 render()
